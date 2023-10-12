@@ -12,13 +12,21 @@ export function Assignment(
   handleClickCompleteAssignment: (index: number) => void,
   handleClickDeleteAssignment: (deletionIndex: number) => void) {
 
+  function completedTextStyle() {
+    if (assignment.completed) {
+      return styles.textCompleted;
+    } else {
+      return "";
+    }
+  }
+
   return (
     <div className={styles.assignment}>
       <button className={styles.checkContainer} onClick={() => handleClickCompleteAssignment(index)}>
         {assignment.completed ? <TbCheck className={styles.completedCheck} size={20} /> : <div />}
       </button>
 
-      <p>{assignment.description}</p>
+      <p className={completedTextStyle()}> {assignment.description}</p>
 
       <button className={styles.deleteButton} onClick={() => handleClickDeleteAssignment(index)}>
         <TbTrash size={20} />
