@@ -4,10 +4,11 @@ import { Assignment } from "./components/Assignment";
 import { useState } from "react";
 
 function App() {
-  const assignments: Assignment[] = [{
+  const initialAssignmentList: Assignment[] = [{
     description: "Some Title",
     completed: false
   }];
+  const [assignments, setAssignmentsList] = useState(initialAssignmentList)
 
   const [newAssignmentText, newAssignmentSetValue] = useState("");
 
@@ -16,13 +17,23 @@ function App() {
       description: newAssignmentText,
       completed: false
     }
-    assignments.push(newAssignment);
+    setAssignmentsList(assignments.concat(newAssignment));
+    newAssignmentSetValue("");
+  }
+
+  function handleClickCompleteAssignment(changedIndex: number) {
+    setAssignmentsList(assignments.map((assignment, index) =>
+      changedIndex === index ? { ...assignment, completed: !assignment.completed } : assignment));
+  }
+
+  function handleClickDeleteAssignment(deletionIndex: number) {
+    setAssignmentsList(assignments.filter((assignment, index) => index != deletionIndex));
   }
 
   return (
     <>
       <Header newAssignment={newAssignmentText} newAssignmentHandleChange={handleAddAssignment} newAssignmentUpdateState={newAssignmentSetValue} />
-      <Assignments assignments={assignments} />
+      <Assignments assignments={assignments} handleClickCompleteAssignment={handleClickCompleteAssignment} handleClickDeleteAssignment={handleClickDeleteAssignment} />
     </>
   );
 }

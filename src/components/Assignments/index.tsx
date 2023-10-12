@@ -2,6 +2,8 @@ import { Assignment } from "../Assignment";
 import styles from "./assignments.module.css";
 type Data = {
   assignments: Assignment[];
+  handleClickCompleteAssignment: (index: number) => void;
+  handleClickDeleteAssignment: (deletionIndex: number) => void;
 }
 
 export function Assignments(data: Data) {
@@ -11,7 +13,7 @@ export function Assignments(data: Data) {
       <header className={styles.header}>
         <div>
           <p>Created Assignments</p>
-          <span>1</span>
+          <span>{data.assignments.length}</span>
         </div>
 
         <div>
@@ -21,7 +23,7 @@ export function Assignments(data: Data) {
       </header>
 
       <div className={styles.list}>
-        <Assignment />
+        {data.assignments.map((assignment, index) => Assignment(assignment, index, data.handleClickCompleteAssignment, data.handleClickDeleteAssignment))}
       </div>
     </section>
   );
