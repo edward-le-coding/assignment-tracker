@@ -51,3 +51,8 @@
   background: grey;
   cursor: default;
 }
+
+.calendar {
+  background-color: rgb(170, 170, 170);
+  z-index: 1;
+}

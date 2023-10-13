@@ -6,19 +6,27 @@ import { useState } from "react";
 function App() {
   const initialAssignmentList: Assignment[] = [{
     description: "Some Title",
-    completed: false
+    dueDate: new Date("2024-11-01"),
+    completed: false,
+    id: crypto.randomUUID()
   }];
+
   const [assignments, setAssignmentsList] = useState(initialAssignmentList)
 
   const [newAssignmentText, newAssignmentSetValue] = useState("");
 
-  function handleAddAssignment(newAssignmentText: string) {
+  const [newAssignmentDueDate, setNewAssignmentDueDate] = useState<Date>();
+
+  function handleAddAssignment(newAssignmentText: string, newAssignmentDueDate: Date) {
     const newAssignment: Assignment = {
       description: newAssignmentText,
-      completed: false
+      completed: false,
+      dueDate: newAssignmentDueDate,
+      id: crypto.randomUUID()
     }
     setAssignmentsList(assignments.concat(newAssignment));
     newAssignmentSetValue("");
+    setNewAssignmentDueDate(undefined);
   }
 
   function handleClickCompleteAssignment(changedIndex: number) {
@@ -32,7 +40,7 @@ function App() {
 
   return (
     <>
-      <Header newAssignment={newAssignmentText} newAssignmentHandleChange={handleAddAssignment} newAssignmentUpdateState={newAssignmentSetValue} />
+      <Header newAssignment={newAssignmentText} newAssignmentHandleChange={handleAddAssignment} newAssignmentDueDate={newAssignmentDueDate} newAssignmentDueDateHandleChange={setNewAssignmentDueDate} newAssignmentUpdateState={newAssignmentSetValue} />
       <Assignments assignments={assignments} handleClickCompleteAssignment={handleClickCompleteAssignment} handleClickDeleteAssignment={handleClickDeleteAssignment} />
     </>
   );

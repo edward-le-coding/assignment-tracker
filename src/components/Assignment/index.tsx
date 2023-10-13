@@ -4,6 +4,8 @@ import { TbTrash, TbCheck } from "react-icons/tb";
 export type Assignment = {
   description: string;
   completed: boolean;
+  dueDate: Date;
+  id: string;
 }
 
 export function Assignment(
@@ -26,8 +28,7 @@ export function Assignment(
         {assignment.completed ? <TbCheck className={styles.completedCheck} size={20} /> : <div />}
       </button>
 
-      <p className={completedTextStyle()}> {assignment.description}</p>
-
+      <p className={completedTextStyle()}> {assignment.description}{String(assignment.dueDate)}</p>
       <button className={styles.deleteButton} onClick={() => handleClickDeleteAssignment(index)}>
         <TbTrash size={20} />
       </button>
