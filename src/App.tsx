@@ -4,12 +4,22 @@ import { Assignment } from "./components/Assignment";
 import { useState } from "react";
 
 function App() {
+  const tomorrow = new Date();
+  tomorrow.setDate(new Date().getDate() + 1);
+
   const initialAssignmentList: Assignment[] = [{
     description: "Some Title",
     dueDate: new Date("2024-11-01"),
     completed: false,
     id: crypto.randomUUID()
-  }];
+  },
+  {
+    description: "Some Title - Due Tomorrow",
+    dueDate: tomorrow,
+    completed: true,
+    id: crypto.randomUUID()
+  }
+  ];
 
   const [assignments, setAssignmentsList] = useState(initialAssignmentList)
 

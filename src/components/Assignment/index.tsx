@@ -22,13 +22,31 @@ export function Assignment(
     }
   }
 
+  function daysToCompletionBox() {
+    const today = new Date();
+    const difference = assignment.dueDate.getDate() - today.getDate();
+    let displayText;
+    if (difference == 1) {
+      displayText = "Due: tomorrow";
+    } else {
+      displayText = "Due: " + difference + " days away";
+    }
+    return (<div className={difference == 1 ? `${styles.daysToCompletionBoxBasicStyle} ${styles.daysToCompletionBoxTomorrow}` : `${styles.daysToCompletionBoxBasicStyle} ${styles.daysToCompletionBoxRegular}`}>
+      {displayText}
+    </div>);
+  }
+
   return (
     <div className={styles.assignment}>
-      <button className={styles.checkContainer} onClick={() => handleClickCompleteAssignment(index)}>
-        {assignment.completed ? <TbCheck className={styles.completedCheck} size={20} /> : <div />}
-      </button>
-
-      <p className={completedTextStyle()}> {assignment.description}{String(assignment.dueDate)}</p>
+      <div className={styles.assignmentInfo}>
+        <button className={styles.checkContainer} onClick={() => handleClickCompleteAssignment(index)}>
+          {assignment.completed ? <TbCheck className={styles.completedCheck} size={20} /> : <div />}
+        </button>
+        <div>
+          <p className={completedTextStyle()}> {assignment.description}</p>
+        </div>
+        {daysToCompletionBox()}
+      </div>
       <button className={styles.deleteButton} onClick={() => handleClickDeleteAssignment(index)}>
         <TbTrash size={20} />
       </button>

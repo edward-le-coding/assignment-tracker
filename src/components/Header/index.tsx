@@ -1,9 +1,9 @@
 import styles from "./header.module.css";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { uppercase } from "../../helpers/stringHelpers";
-import { DayPicker } from "react-day-picker";
 import { TbCalendar } from "react-icons/tb";
 import { MouseEvent, ReactNode, useState } from "react";
+import { Calendar } from "./Calendar";
 
 type HeaderData = {
   newAssignment: string;
@@ -31,6 +31,10 @@ export function Header(props: HeaderData) {
     setDisplayCalendar(!displayCalendar);
   }
 
+  function shouldDisplayCalendar(shouldNowDisplayCalendar: boolean) {
+    setDisplayCalendar(shouldNowDisplayCalendar);
+
+  }
   function submitAssignment(e: MouseEvent): void {
     e.preventDefault();
     if (props.newAssignmentDueDate && props.newAssignment) {
@@ -40,10 +44,19 @@ export function Header(props: HeaderData) {
 
   function displayCalendarOrCalendarButton(): ReactNode {
     if (displayCalendar) {
-      return <DayPicker className={styles.calendar} mode="single" required selected={props.newAssignmentDueDate} onSelect={props.newAssignmentDueDateHandleChange} />
-    } else {
-      return <TbCalendar xlinkShow="" />
+      return (
+        <>
+          <button onClick={displayDatePicker}>
+            <TbCalendar xlinkShow="" />
+          </button>
+          <Calendar newAssignmentDueDate={props.newAssignmentDueDate} setDisplayCalendar={shouldDisplayCalendar} newAssignmentDueDateHandleChange={props.newAssignmentDueDateHandleChange} />
+        </>);
     }
+    return (
+      <button onClick={displayDatePicker}>
+        <TbCalendar xlinkShow="" />
+      </button>
+    )
   }
 
   return (
@@ -51,9 +64,7 @@ export function Header(props: HeaderData) {
       <h1>{uppercase("bcit")} Assignment Tracker</h1>
       <form className={styles.newAssignmentForm}>
         <input placeholder="Add a new assignment" type="text" value={props.newAssignment} onChange={e => props.newAssignmentUpdateState(e.target.value)} />
-        <button onClick={displayDatePicker}>
-          {displayCalendarOrCalendarButton()}
-        </button>
+        {displayCalendarOrCalendarButton()}
         <button disabled={isNotSubmittable()} onClick={(e) => submitAssignment(e)}>
           Create <AiOutlinePlusCircle size={20} />
         </button>

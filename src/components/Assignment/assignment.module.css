@@ -10,6 +10,16 @@
   gap: 12px;
 }
 
+.assignmentInfo {
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  gap: 1vw;
+}
+
 .assignment p {
   font-size: 14px;
   line-height: 19px;
@@ -17,14 +27,10 @@
   margin-right: auto;
 }
 
-p.textCompleted {
-  color: #808080;
-  text-decoration: line-through;
-}
-
 .checkContainer {
   width: 18px;
   height: 18px;
+  float: left;
   background: none;
   border: none;
 }
@@ -53,4 +59,23 @@ p.textCompleted {
   background: none;
   border: none;
   color: #808080;
+}
+
+.daysToCompletionBoxBasicStyle {
+  border-radius: 10%;
+  padding: 1.5%;
+  margin: 2%;
+}
+
+.daysToCompletionBoxRegular {
+  background-color: #808080;
+}
+
+.daysToCompletionBoxTomorrow {
+  background-color: red;
+}
+
+p.textCompleted {
+  color: #808080;
+  text-decoration: line-through;
 }

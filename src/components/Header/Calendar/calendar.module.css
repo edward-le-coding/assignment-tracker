@@ -1,0 +1,16 @@
+.calendar {
+    position: absolute;
+    left: 25vw;
+    z-index: 999;
+    padding: 5%;
+}
+
+.calendarInner {
+    display: inline-block;
+    position: absolute;
+    background: rgb(170, 170, 170);
+    border-color: white;
+    border-width: 1vw;
+    border-radius: 5%;
+    padding: 5vh;
+}
